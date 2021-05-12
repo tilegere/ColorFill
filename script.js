@@ -8,6 +8,8 @@ let difficulty = "easy";
 
 // Color Select
 const colorSelect = document.getElementById('color-select');
+const currentScoreSpan = document.getElementById('current-score');
+const highScoreSpan = document.getElementById('high-score');
 
 // const mainColor1 = document.createElement('div');
 // const mainColor2 = document.createElement('div');
@@ -64,7 +66,16 @@ chooseColor = (color) => {
     return;
   }
 
-  checkBoard(color);
+  score[difficulty]++;
+  console.log(score[difficulty]);
+  checkBoard();
+  selectedColor = color;
+  changeColor();
+  let solved = checkSolved();
+  if(solved){
+    endGame();
+  }
+  setScore();
 }
 
 const addedColor1 = document.createElement('div');
@@ -147,6 +158,7 @@ difficultyToggle = (diff) => {
   difficulty = diff;
   reinitColors();
   displayBoard();
+  setScore();
 }
 
 reinitColors = () => {
@@ -176,27 +188,42 @@ reinitColors = () => {
   }
 }
 
-checkBoard = (color) => {
+checkBoard = () => {
   for(let col = 0; col < boardHeight; col++){
     for(let row = 0; row < boardWidth; row++){
       if(selectedArray[difficulty][col][row] === true){
-        if((col + 1) != boardHeight && board[difficulty][col + 1][row] == board[difficulty][col][row]){
-          selectedArray[difficulty][col + 1][row] = true;
+        //Check if each side doesn't exit the board, if it's false and if it's the same color
+        if((col + 1) != boardHeight && selectedArray[difficulty][col + 1][row] === false && board[difficulty][col + 1][row] == board[difficulty][col][row]){
+          checkItemSides(col + 1, row);
         }
-        if((row + 1) != boardWidth && board[difficulty][col][row + 1] == board[difficulty][col][row]){
-          selectedArray[difficulty][col][row + 1]= true;
+        if((row + 1) != boardWidth && selectedArray[difficulty][col][row + 1] === false && board[difficulty][col][row + 1] == board[difficulty][col][row]){
+          checkItemSides(col, row + 1);
         }
-        if((col - 1) >= 0 && board[difficulty][col - 1][row] == board[difficulty][col][row]){
-          selectedArray[difficulty][col - 1][row] = true;
+        if((col - 1) >= 0 && selectedArray[difficulty][col - 1][row] === false && board[difficulty][col - 1][row] == board[difficulty][col][row]){
+          checkItemSides(col - 1, row);
         }
-        if((row - 1) >= 0 && board[difficulty][col][row - 1] == board[difficulty][col][row]){
-          selectedArray[difficulty][col][row - 1] = true;
+        if((row - 1) >= 0 && selectedArray[difficulty][col][row - 1] === false && board[difficulty][col][row - 1] == board[difficulty][col][row]){
+          checkItemSides(col, row - 1);
         }
       }
     }
   }
-  selectedColor = color;
-  changeColor();
+}
+
+checkItemSides = (col, row) => { // check all sides of a newly changed block in case there are additional blocks linked to it around a corner
+  selectedArray[difficulty][col][row] = true;
+  if((col + 1) != boardHeight && selectedArray[difficulty][col + 1][row] === false && board[difficulty][col + 1][row] == board[difficulty][col][row]){
+    checkItemSides(col + 1, row);
+  }
+  if((row + 1) != boardWidth && selectedArray[difficulty][col][row + 1] === false && board[difficulty][col][row + 1] == board[difficulty][col][row]){
+    checkItemSides(col, row + 1);
+  }
+  if((col - 1) >= 0 && selectedArray[difficulty][col - 1][row] === false && board[difficulty][col - 1][row] == board[difficulty][col][row]){
+    checkItemSides(col - 1, row);
+  }
+  if((row - 1) >= 0 && selectedArray[difficulty][col][row - 1] === false && board[difficulty][col][row - 1] == board[difficulty][col][row]){
+    checkItemSides(col, row - 1);
+  }
 }
 
 changeColor = () => {
@@ -210,3 +237,40 @@ changeColor = () => {
     }
   }
 }
+
+checkSolved = () => {
+  for(let col = 0; col < boardHeight; col++){
+    for(let row = 0; row < boardWidth; row++){
+      if(selectedArray[difficulty][col][row] != true && board[difficulty][col][row] != selectedColor){
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+endGame = () => {
+  console.log("You win with " + score[difficulty] + " tries!");
+  if(score[difficulty] < highScore[difficulty]){
+    highScore[difficulty] = score[difficulty];
+    localStorage.setItem('colorFillScore', JSON.stringify(highScore));
+  }
+}
+
+let score = {easy: 0, medium: 0, hard: 0};
+
+let local = localStorage.getItem('colorFillScore');
+
+let highScore = {}; 
+if(local == null){
+  highScore = {easy: 1000, medium: 1000, hard: 1000};
+} else {
+  highScore = JSON.parse(local);
+}
+
+setScore = () => {
+  currentScoreSpan.textContent = score[difficulty];
+  highScoreSpan.textContent = highScore[difficulty];
+}
+
+setScore();

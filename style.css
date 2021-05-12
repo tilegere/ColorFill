@@ -113,3 +113,8 @@ button:focus {
   width: 95%;
   justify-content: center;
 }
+
+#score {
+  padding-right: 25%;
+  padding-left: 60%;
+}

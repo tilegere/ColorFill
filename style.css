@@ -1,0 +1,115 @@
+#header{
+  text-align: center;
+}
+
+#menu, #game-board {
+  width: 75%;
+  margin: 0 auto;
+}
+
+button:focus {
+  outline: 0;
+}
+
+#difficulty {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+#menu {
+  display: flex;
+  flex-direction: column;
+  font-size: 0;
+}
+
+#easy, #medium, #hard {
+  background-color: #666666;
+  border: none;
+  color: white;
+  padding: 10px;
+  margin: 0px;
+  display: inline-block;
+  flex-grow: 1;
+}
+
+#easy:hover, #medium:hover, #hard:hover {
+  background: #333333;
+}
+
+#easy {
+  border-radius: 5px 0px 0px 0px;
+}
+
+#medium {
+  border-radius: 0px;
+}
+
+#hard {
+  border-radius: 0px 5px 0px 0px;
+}
+
+#color-select{
+  background-color: #666666;
+  height: 100px; /* Temp value */
+  border-radius: 0px 0px 5px 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#color-select div {
+  margin-top: 20px;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  justify-content: space-around;
+}
+
+#game-board{
+  background-color: #666666;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+.blue {
+  background-color: #1E90FF;
+}
+
+.green {
+ background-color: #008000;
+}
+
+.yellow {
+ background-color: #FFD700;
+}
+
+.orange {
+  background-color: #FFA500;
+}
+
+.red {
+ background-color: #F20E0E;
+}
+
+.purple {
+  background-color: #800080;
+}
+
+.selected {
+  background-color: #444444 !important;
+}
+
+.board-piece {
+  height: 50px;
+  width: 50px;
+}
+
+.row-pieces{
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  width: 95%;
+  justify-content: center;
+}

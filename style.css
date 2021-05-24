@@ -1,10 +1,61 @@
-#header{
-  text-align: center;
+body {
+  background-color: #edf3f8;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
-#menu, #game-board {
-  width: 75%;
+#header{
+  display: flex;
+  width: 600px;
   margin: 0 auto;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#left-header, #right-header {
+  width: 50%;
+}
+
+#right-header {
+  text-align: right;
+}
+
+h1 {
+  color: #1d3549;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+#how-to, #preferences {
+  background-color: #2b506e;
+  color: white;
+  border-radius: 5px;
+  display: inline-block;
+  padding: 4px;
+}
+
+#how-to {
+  margin-top: 3px;
+}
+
+#preferences {
+  margin-top: 10px;
+}
+
+#score { 
+  display: flex;
+  justify-content: flex-end;
+}
+
+.score-section {
+  background-color: #4078a5;
+  color: white;
+  border-radius: 5px;
+  width: 100px;
+  text-align: center;
+  border: 2px solid #24435c;
+  margin-left: 10px;
 }
 
 button:focus {
@@ -12,29 +63,32 @@ button:focus {
 }
 
 #difficulty {
-  display: flex;
-  flex-wrap: wrap;
-  flex: 1;
+  margin: 0 auto;
 }
 
 #menu {
   display: flex;
   flex-direction: column;
   font-size: 0;
+  border: 5px solid #24435c;
+  border-radius: 10px;
+  width: 600px;
+  margin: 0 auto;
+  margin-bottom: 10px;
 }
 
 #easy, #medium, #hard {
-  background-color: #666666;
+  background-color: #c8daea;
   border: none;
-  color: white;
-  padding: 10px;
+  color: midnightblue;
   margin: 0px;
   display: inline-block;
-  flex-grow: 1;
+  width: 200px;
+  height: 30px;
 }
 
 #easy:hover, #medium:hover, #hard:hover {
-  background: #333333;
+  background: #b6cee2;
 }
 
 #easy {
@@ -50,12 +104,14 @@ button:focus {
 }
 
 #color-select{
-  background-color: #666666;
-  height: 100px; /* Temp value */
+  background-color: #c8daea;
+  height: 90px; /* Temp value */
   border-radius: 0px 0px 5px 5px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  width: 600px;
+  margin: 0 auto;
 }
 
 #color-select div {
@@ -65,12 +121,24 @@ button:focus {
   width: 50px;
   display: flex;
   justify-content: space-around;
+  border: 2px solid #2b506e;
+  cursor: pointer;
+  transition: all 250ms;
+}
+
+#color-select div:hover {
+  transform: scale(1.1);
+
 }
 
 #game-board{
-  background-color: #666666;
-  border-radius: 5px;
-  margin-top: 20px;
+  border: 5px solid #24435c;
+  background-color: #c8daea;
+  display: inline-flex;
+  flex-direction: column;
+  border-radius: 10px;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .blue {
@@ -98,7 +166,7 @@ button:focus {
 }
 
 .selected {
-  background-color: #444444 !important;
+  background-color: #a3c2db !important;
 }
 
 .board-piece {
@@ -106,15 +174,9 @@ button:focus {
   width: 50px;
 }
 
-.row-pieces{
+.row-pieces {
   display: flex;
   flex-direction: row;
   margin: 0 auto;
-  width: 95%;
   justify-content: center;
-}
-
-#score {
-  padding-right: 25%;
-  padding-left: 60%;
 }

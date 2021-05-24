@@ -128,9 +128,6 @@ displayBoard = () => {
       gameBoard.children[i].children[j].classList.add(board[difficulty][i][j]);
     }
   }
-  gameBoard.children[0].style.paddingTop = "20px";
-  gameBoard.children[gameBoard.children.length - 1].style.paddingBottom = "20px";
-
   selectedColor = board[difficulty][0][0];
 }
 

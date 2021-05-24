@@ -6,12 +6,21 @@
   </head>
   <body>
     <div id="header">
-      <h2>Color Fill!</h2>
+      <div id="left-header">
+        <div id="game-title">
+          <h1>Color Fill!</h1>
+        </div>
+        <div id="how-to">? How to play</div>
+      </div>
+      <div id="right-header">
+        <div id="score">
+          <div class="score-section">Score: <br /><span id="current-score"></span></div>
+          <div class="score-section">High Score: <br /><span id="high-score"></span></div>
+        </div>
+        <div id="preferences">Edit Colors</div>
+      </div>
     </div>
-    <div id="score">
-      <div>Current Score: <span id="current-score"></span></div>
-      <div>High Score: <span id="high-score"></span></div>
-    </div>
+    
     <div id="menu">
       <div id="difficulty">
         <button id="easy" onclick="difficultyToggle('easy')">Easy</button>

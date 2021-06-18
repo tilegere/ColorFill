@@ -283,6 +283,7 @@ newGame = () => {
   newGameBtn.removeEventListener('click', newGame);
   newGameBtn.classList.toggle('new-game-active');
   buttonOverlay.classList.toggle('active');
+  overlay.classList.toggle('active');
 
   if(difficulty == "easy"){
     board.easy = [];
@@ -305,8 +306,10 @@ newGame = () => {
       board.hard.push(element);
     });
   }
+
+  selectedArray[difficulty] = falseArray();
   displayBoard();
-  score = 0;
+  score[difficulty] = 0;
   setScore();
 }
 

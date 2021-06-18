@@ -6,6 +6,7 @@ const hardBtn = document.getElementById('hard');
 easyBtn.classList.add("selected");
 let difficulty = "easy";
 
+
 // Color Select
 const colorSelect = document.getElementById('color-select');
 const currentScoreSpan = document.getElementById('current-score');
@@ -27,6 +28,18 @@ const boardWidth = 12;
 const boardHeight = 10;
 
 let selectedColor;
+
+const overlay = document.createElement('div');
+overlay.classList.add('overlay');
+
+const buttonOverlay = document.createElement('div');
+buttonOverlay.classList.add('button-overlay');
+
+const newGameBtn = document.createElement('div');
+newGameBtn.classList.add('new-game-button');
+newGameBtn.innerHTML = "New Game";
+
+buttonOverlay.appendChild(newGameBtn);
 
 let selectedArray = {easy: [], medium: [], hard: []}; //a true/false array that determines if a square is now part of the changing group
 
@@ -128,6 +141,8 @@ displayBoard = () => {
       gameBoard.children[i].children[j].classList.add(board[difficulty][i][j]);
     }
   }
+  gameBoard.appendChild(overlay);
+  gameBoard.appendChild(buttonOverlay);
   selectedColor = board[difficulty][0][0];
 }
 
@@ -247,11 +262,50 @@ checkSolved = () => {
 }
 
 endGame = () => {
-  console.log("You win with " + score[difficulty] + " tries!");
   if(score[difficulty] < highScore[difficulty]){
     highScore[difficulty] = score[difficulty];
     localStorage.setItem('colorFillScore', JSON.stringify(highScore));
   }
+  setTimeout(endDisplay, 500);
+  setTimeout(toggleNewGame, 1100);
+}
+
+endDisplay = () => {
+  overlay.classList.toggle('active');
+}
+
+toggleNewGame = () => {
+  newGameBtn.classList.toggle('new-game-active');
+  newGameBtn.addEventListener('click', newGame);
+}
+
+newGame = () => {
+  newGameBtn.removeEventListener('click', newGame);
+  newGameBtn.classList.toggle('new-game-active');
+  buttonOverlay.classList.toggle('active');
+
+  if(difficulty == "easy"){
+    board.easy = [];
+    let tempEasy = randomBoard(4);
+    tempEasy.forEach((element) => {
+      board.easy.push(element);
+    });
+  }
+  else if(difficulty == "medium"){
+    let tempMedium = randomBoard(5);
+    tempMedium.forEach((element) => {
+      board.medium.push(element);
+    });
+  }
+  else if(difficulty == "hard"){
+    let tempHard = randomBoard(6);
+    tempHard.forEach((element) => {
+      board.hard.push(element);
+    });
+  }
+  displayBoard();
+  score = 0;
+  setScore();
 }
 
 let score = {easy: 0, medium: 0, hard: 0};

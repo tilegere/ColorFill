@@ -292,12 +292,14 @@ newGame = () => {
     });
   }
   else if(difficulty == "medium"){
+    board.medium = [];
     let tempMedium = randomBoard(5);
     tempMedium.forEach((element) => {
       board.medium.push(element);
     });
   }
   else if(difficulty == "hard"){
+    board.hard = [];
     let tempHard = randomBoard(6);
     tempHard.forEach((element) => {
       board.hard.push(element);
